@@ -1,7 +1,7 @@
 shell = /bin/bash
 
 
-PREFIX=innovatrics_assignment
+PREFIX=slido_assignment
 
 
 .PHONY: style
