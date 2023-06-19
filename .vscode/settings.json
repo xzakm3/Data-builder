@@ -1,0 +1,14 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.ignorePatterns": [
+        "*.tox*",
+        ".venv*",
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+    ]
+}

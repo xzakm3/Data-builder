@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "mgesbert.python-path",
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "waderyan.gitblame"
+    ]
+}

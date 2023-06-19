@@ -1,0 +1,15 @@
+[tool.flake8]
+max-line-length = 120
+exclude = ".venv,.tox,.mypy_cache"
+
+[tool.black]
+py310 = true
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+)/'''

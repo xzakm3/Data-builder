@@ -1,0 +1,16 @@
+.tox
+.mypy_cache
+.venv
+.DS_store
+*.zip
+*.tar
+*.tar.gz
+*.jpg
+*.png
+*.csv
+*.ipynb_checkpoints
+
+__pycache__
+
+data
+steps_output
