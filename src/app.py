@@ -29,6 +29,6 @@ def predict_language() -> Tuple[Response, int]:
         return PredictLanguageResponse(msg, status).to_dict(), status  # type: ignore
 
     # do prediction
-    predict(content)
+    results = predict(content)
     status = 200
-    return PredictLanguageResponse("Everything is OK", status).to_dict(), status  # type: ignore
+    return PredictLanguageResponse("Everything is OK", status, results).to_dict(), status  # type: ignore
