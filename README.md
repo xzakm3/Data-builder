@@ -2,8 +2,8 @@ Data builder
 --------------------------
 
 This project contains several parts:
-- server part that sits in `src` folder as entry point
-- script `generate_predictions` generating predictions 
+- server part that sits in `src` folder
+- script `generate_predictions.py` generating predictions. It loads data from csv and request its content to server
 
 ## Prerequisites
 You need to have installed `python3.10`.
@@ -34,7 +34,7 @@ As first, exec to virtual env as defined above
 In one terminal session, go to `src` directory and run `flask run` with corresponding parameters. If there is an issue with running Flask server,
 you need to export several environment variables.
 
-When you are on linux:
+When you are on Linux:
 ```
 export FLASK_ENV=development
 export FLASK_APP=app.py
@@ -54,8 +54,8 @@ python generate_predictions.py --help
 to see how to run this script
 
 It requires two parameters:
-    - input path, that points to csv file with texts to be language predicted. Path is relative with respect to root folder
-    - output path, that is path to result folder. There will stored result_predictions.csv with all predicted results. Path is relative with respect to root folder
+- input path, that points to csv file with texts to be language predicted. Path is relative with respect to root folder
+- output path, that is path to result folder. There will stored result_predictions.csv with all predicted results. Path is relative with respect to root folder
 
 
 So if you run script as follows
