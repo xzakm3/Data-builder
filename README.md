@@ -1,25 +1,24 @@
-Data processing workflow
+Data builder
 --------------------------
 
-This project contains several scripts:
-- data processing workflow for given datasets with `src/data_workflow_main.py` file as entry point
-- data fusion with filtering too bright images and images with large relative head size with respect to image size in the `src/data_fusion_main.py` file as entry poiny
-- 2 histogram visualizations within jupyter notebook in `src/histograms.ipynb`
+This project contains several parts:
+- server part that sits in `src` folder as entry point
+- script `generate_predictions` generating predictions 
 
 ## Prerequisites
 You need to have installed `python3.10`.
-Assure in root folder, you created `data` folder where you placed your data to be processed. E.g. `lfw` dataset placed into `data/lfw/<its content>`
+Assure in root folder, you created `data` folder where you placed your data `texts.csv` to be processed.
 
 ## How to 
 ### Develop
 
 Go to root directory and type following command in terminal:
 ```
-make venv & source .venv/innovatrics_assignment/bin/activate
+make venv & source .venv/slido_assignment/bin/activate
 ```
-It will install all necessary dependencies for you into `innovatrics_assignment` virtual environment. Get to  virtual env with executing following command
+It will install all necessary dependencies for you into `slido_assignment` virtual environment. Get to  virtual env with executing following command
 ```
-source .venv/innovatrics_assignment/bin/activate
+source .venv/slido_assignment/bin/activate
 ```
 and from now on, you can use this virtual env for further developing.
 
@@ -29,29 +28,41 @@ and from now on, you can use this virtual env for further developing.
 make reqs
 ```
 
-### Run script
+### Run
 As first, exec to virtual env as defined above
-#### Data workflow pipeline
-Go to `src` directory and run `python data_workflow_main.py` with corresponding parameters. To figure out which parameters to use, type 
+#### Run server
+In one terminal session, go to `src` directory and run `flask run` with corresponding parameters. If there is an issue with running Flask server,
+you need to export several environment variables.
+
+When you are on linux:
 ```
-python data_workflow_main.py --help
+export FLASK_ENV=development
+export FLASK_APP=app.py
+```
+When you are on Windows:
+```
+set FLASK_ENV=development
+set FLASK_APP=app.py
 ```
 
-For now, we support following values:
-- **dataset type** (str): one of following values: [lfw, celeba]
-- **convert to image format** (str): one of following values: [jpg, png]
-- **results file path** (str): as suffix of file path, you can define compression type from one of the values [.tar, .tar.gz, .zip]
-- **compress quality** (str): any value from range <0;100>
+If nothing fails, server is running on localhost with port 5000.
+#### Run script generating predictions
+Go to root directory and run
+```
+python generate_predictions.py --help
+```
+to see how to run this script
 
-After script finish, you can find your normalized results in the path, you defined for `result_path` argument and randomly selected images can be found in `DEBUG` folder.
+It requires two parameters:
+    - input path, that points to csv file with texts to be language predicted. Path is relative with respect to root folder
+    - output path, that is path to result folder. There will stored result_predictions.csv with all predicted results. Path is relative with respect to root folder
 
-#### Data fusion script
-Prerequisity for running this script is to execute successfully `Data workflow pipeline` script at least 1 time. Go to `src` directory and run `python data_fusion_main.py` with corresponding parameters. Script requires 2 parameters:
-- **input file path** (str): relative path to CSV file from which filtering of data should happen. (E.g. you can point to final `dataset_labels.csv` file). This path must be relative and base starts in project root directory level
-- **output file path** (str): relative path to folder where normalized (result images from `data_workflow_pipeline`) filtered images will be placed. Folder will contain **good** folder with good images (not too bright, etc.) and **bad** folder with images filtered out. This path must be relative and base starts in project root directory level
 
-#### Histograms
-Prerequisity for running this script is to execute successfully `Data workflow pipeline` script at least 1 time for lfw and celeba dataset. Update relative path for variable `file_path` correspondingly (pointing to `dataset_label.csv` in your folder system), then go to `src` directory and open `histograms.ipynb` jupyter notebook. Run all cells. After that you will see 2 expected histograms
+So if you run script as follows
+```
+python generate_predictions.py -ip './data/texts.csv' -op 'results'
+```
+it loads csv file from `<root_path>/data/texts.csv`. All prediction results will be stored into `<root_path>/results/resultpredictions.csv` file
 ### Run tests
 Go to root directory and run command
 ```
