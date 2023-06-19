@@ -9,6 +9,8 @@ import requests
 
 from src import logger
 
+logger.init_logger()
+log = logger.get_logger()
 
 PROJECT_ROOT_PATH = f"{Path(__file__).parent}"
 CSV_SUFFIX: Final = ".csv"
@@ -42,6 +44,8 @@ def load_csv_data(csv_file_path: str) -> pd.DataFrame:
             df = pd.read_csv(csv_file_path, sep=CSV_DOTTED_LINE_SEP)
     except pd.errors.ParserError:
         df = pd.read_csv(csv_file_path, sep=CSV_DOTTED_LINE_SEP)
+
+    log.info(f"Data loaded from path: {csv_file_path}")
     return df
 
 
@@ -72,6 +76,7 @@ def preprocess_response(predictions: List[Dict[str, Any]]) -> pd.DataFrame:
 
 def store_data(data: pd.DataFrame, output_file_path: str) -> None:
     data.to_csv(os.path.join(output_file_path, RESULTS_CSV_FILE), index=False, sep=CSV_COMMA_SEP)
+    log.info(f"Data stored into: {output_file_path}")
 
 
 def run(input_path: str, output_path: str) -> None:
