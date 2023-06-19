@@ -5,7 +5,7 @@ from typing import Dict, Any
 
 @dataclass_json
 @dataclass
-class PredictLanguage:
+class PredictLanguageResponse:
     message: str
     status: int
     body: Dict[str, Any] = field(default_factory=dict)
