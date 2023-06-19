@@ -6,3 +6,4 @@ typing_extensions==4.4.0
 pandas==1.5.3
 Flask==2.2.3
 jsonschema==4.17.3
+dataclasses-json==0.5.7
