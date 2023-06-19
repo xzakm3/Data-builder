@@ -32,7 +32,7 @@ class SentencePrediction:
 
 
 class FastTextLanguagePredictionModel:
-    def __init__(self, confidence_threshold: float = 0.9) -> None:
+    def __init__(self, confidence_threshold: float = 0.8) -> None:
         self._model = fasttext.load_model(PRETRAINED_MODEL_PATH)
         self._confidence_threshold = confidence_threshold
         self.log = logger.get_logger()
