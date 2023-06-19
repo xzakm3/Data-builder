@@ -4,6 +4,7 @@ from dataclasses_json import dataclass_json
 import os
 from typing import Dict, Any, List
 
+from src import logger
 from src.data_models.predict_language_request_body import PredictLanguageRequestBody
 
 PATH_TO_THIS_FILE: str = os.path.dirname(os.path.abspath(__file__))
@@ -34,6 +35,7 @@ class FastTextLanguagePredictionModel:
     def __init__(self, confidence_threshold: float = 0.9) -> None:
         self._model = fasttext.load_model(PRETRAINED_MODEL_PATH)
         self._confidence_threshold = confidence_threshold
+        self.log = logger.get_logger()
 
     def _parse_languages(self, languages: List[List[str]]) -> List[str]:
         return [lan[0].replace(LANG_PREDICT_PREFIX, "") for lan in languages]
@@ -42,6 +44,7 @@ class FastTextLanguagePredictionModel:
         return [round(float(conf[0]), 4) for conf in confidences]
 
     def predict(self, data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        self.log.info(f"Going to predict with confidence threshold = {self._confidence_threshold}")
         data_for_prediction: PredictLanguageRequestBody = PredictLanguageRequestBody.from_dict(data)  # type: ignore
         texts = data_for_prediction.text
         languages, confidences = self._model.predict(texts)
@@ -53,4 +56,5 @@ class FastTextLanguagePredictionModel:
             ).to_dict()  # type: ignore
             for (text, lang, confidence) in zip(texts, parsed_langs, parsed_confs)
         ]
+        self.log.info("Languages for sentences are predicted!")
         return results
