@@ -9,7 +9,6 @@ import requests
 
 from src import logger
 
-logger.init_logger()
 log = logger.get_logger()
 
 PROJECT_ROOT_PATH = f"{Path(__file__).parent}"
@@ -75,8 +74,9 @@ def preprocess_response(predictions: List[Dict[str, Any]]) -> pd.DataFrame:
 
 
 def store_data(data: pd.DataFrame, output_file_path: str) -> None:
-    data.to_csv(os.path.join(output_file_path, RESULTS_CSV_FILE), index=False, sep=CSV_COMMA_SEP)
-    log.info(f"Data stored into: {output_file_path}")
+    full_output_path: str = os.path.join(output_file_path, RESULTS_CSV_FILE)
+    data.to_csv(full_output_path, index=False, sep=CSV_COMMA_SEP)
+    log.info(f"Data stored into: {full_output_path}")
 
 
 def run(input_path: str, output_path: str) -> None:
