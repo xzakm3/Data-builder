@@ -2,6 +2,7 @@
 .mypy_cache
 .venv
 .DS_store
+*.csv
 *.ipynb_checkpoints
 
 __pycache__
